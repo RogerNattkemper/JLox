@@ -11,11 +11,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-
 public class Lox {
 
   static boolean hadError = false; // Set by the Report function / unset in RunPrompt
- // static private String testFile = "LoxExample"; // Uncomment to run test files (ensure the file is in the JLox directory)
+  /* File Testing w/ JLOX.JAR 
+   *  Using the command line prompt, go to the working directory
+   *  type in : java -jar jlox.jar "Testfile Name"
+   */
 
   public static void main(String[] args) throws IOException {
    
@@ -27,15 +29,6 @@ public class Lox {
     } else {
       runPrompt();
     }
-    
-    
-    // Uncomment to run test files (ensure the file is in the JLox directory)
-    /*
-    Path currentDirectoryPath = FileSystems.getDefault().getPath("");
-    String exampleTestFilePath = currentDirectoryPath.toAbsolutePath().toString() + File.separatorChar + testFile;
-    System.out.println(exampleTestFilePath); 
-    runFile(exampleTestFilePath);
-    */
   }
 
 /* RUNFILE
@@ -67,7 +60,6 @@ public class Lox {
         hadError = false;
     }
   }
-
   
 /* RUN
  * This is the core function that both runFile and runPrompt use. 
