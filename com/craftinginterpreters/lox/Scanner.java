@@ -75,10 +75,13 @@ class Scanner {
             case '<': addToken(match('=') ? LESS_EQUAL : LESS); break;
             case '>': addToken(match('=') ? GREATER_EQUAL : GREATER); break;
 
-            // The "/" special case
+            // The comment line special cases
             case '/': 
                 if (match('/')) {
                     while (peek() != '\n' && !isAtEnd()) advance(); // If "//" is found this line is a comment, and it while loops through rest of it to ignore
+                }
+                else if (match('*')) {
+                    starcomment(); 
                 }
                 else {
                     addToken(SLASH);
@@ -148,8 +151,24 @@ class Scanner {
         // This removes the quotes leaving just the string
         String value = source.substring(start + 1, current - 1);
         addToken(STRING, value);
-    }
+    } // string
 
+    // A "/*" was found, denoting the start of a star, possibly multilined, comment, need to find the end 
+    private void starcomment() {
+        while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
+            if (peek() == '\n') line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            // If the comment is not terminated before the end of the file, I don't think that kicks off an error
+            return;
+        } 
+
+        // The end of line was not found, and it got out of the while loop, meaning the "/*" was found
+        advance();
+        advance();
+    } 
 
     // Looks at next character and compares it to the "expected", if match, return true
     // If true, advances to the counter to the next unknown character
