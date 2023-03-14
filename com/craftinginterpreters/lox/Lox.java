@@ -1,18 +1,24 @@
 package com.craftinginterpreters.lox;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+
 public class Lox {
 
   static boolean hadError = false; // Set by the Report function / unset in RunPrompt
+ // static private String testFile = "LoxExample"; // Uncomment to run test files (ensure the file is in the JLox directory)
 
   public static void main(String[] args) throws IOException {
+   
     if (args.length > 1) {
       System.out.println("Usage: jlox [script]");
       System.exit(64); 
@@ -21,6 +27,15 @@ public class Lox {
     } else {
       runPrompt();
     }
+    
+    
+    // Uncomment to run test files (ensure the file is in the JLox directory)
+    /*
+    Path currentDirectoryPath = FileSystems.getDefault().getPath("");
+    String exampleTestFilePath = currentDirectoryPath.toAbsolutePath().toString() + File.separatorChar + testFile;
+    System.out.println(exampleTestFilePath); 
+    runFile(exampleTestFilePath);
+    */
   }
 
 /* RUNFILE
@@ -52,6 +67,8 @@ public class Lox {
         hadError = false;
     }
   }
+
+  
 /* RUN
  * This is the core function that both runFile and runPrompt use. 
  *  ---- Useless at the moment, it just prints out the "tokens"

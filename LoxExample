@@ -1,0 +1,5 @@
+"One" int Num = 1
+// commented out "Two" int Num2 = 1
+"Three" int Num3 = 1 /* comment start
+"Four" int Num4 = 1
+*/ "Five" int Num5 = 1 /* int Num6 = 1
