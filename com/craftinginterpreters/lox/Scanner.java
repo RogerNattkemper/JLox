@@ -122,7 +122,6 @@ class Scanner {
     private void number() {
         while (isDigit(peek())) advance();
 
-
         // Look for a decimal point
         if (peek() == '.' && isDigit(peekNext())) {
             advance();

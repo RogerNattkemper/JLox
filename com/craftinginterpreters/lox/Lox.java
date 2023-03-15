@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +14,7 @@ public class Lox {
   static boolean hadError = false; // Set by the Report function / unset in RunPrompt
   /* File Testing w/ JLOX.JAR 
    *  Using the command line prompt, go to the working directory
-   *  type in : java -jar jlox.jar "Testfile Name"
+   *  type in : java -jar jlox.jar [Testfile Name]
    */
 
   public static void main(String[] args) throws IOException {
