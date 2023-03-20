@@ -14,12 +14,18 @@ import java.util.List;
 
 public class GenerateAst {
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
-            System.err.println("Usage: generate_ast <output directory>");
-            System.exit(64);
-        }
+        // if (args.length != 1) {
+        //     System.err.println("Usage: generate_ast <output directory>");
+        //     System.exit(64);
+        // }
 
-        String outputDir = args[0]; 
+        // The next line prints our where Java is executing from,
+        // i.e. its "current working directory".
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
+        // Given the above information, this is the output direcotry
+        // we need to be using. I'm hardcoding it for simplicity.
+        String outputDir = "com/craftinginterpreters/lox"; //args[0]; 
         defineAst(outputDir, "Expr", Arrays.asList(
             "Binary     : Expr left, Token operator, Expr right",
             "Grouping   : Expr expression", 
@@ -35,11 +41,11 @@ public class GenerateAst {
         String path = outputDir + "/" + baseName + ".java";
         PrintWriter writer = new PrintWriter(path, "UTF-8");
 
-        writer.println("package com.craftinginterpreters.lox");
+        writer.println("package com.craftinginterpreters.lox;");
         writer.println();
-        writer.println("import java.util.List");
+        writer.println("import java.util.List;");
         writer.println();
-        writer.println("abstract class " + baseName + " {}");
+        writer.println("abstract class " + baseName + " {");
 
         // The AST Classes
         for (String type : types) {
@@ -57,7 +63,7 @@ public class GenerateAst {
      * I am not sure how it defines the type of the parameters, maybe that's coming up
      */
     private static void defineType(PrintWriter writer, String baseName, String className, String fieldList) {
-        writer.println("  static clase " + className + " extends " + baseName + " {");
+        writer.println("  static class " + className + " extends " + baseName + " {");
 
         // Constructor writer
         writer.println("     " + className + "(" + fieldList + ") {");
