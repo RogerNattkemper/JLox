@@ -5,9 +5,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
-/* I am still unsure what the purpose of this is, it appears to be a program for generating statements, 
- *
- */
+
     /* GenerateAST
      * Takes in a String, and seems to ....
      */
@@ -47,6 +45,8 @@ public class GenerateAst {
         writer.println();
         writer.println("abstract class " + baseName + " {");
 
+        defineVisitor(writer, baseName, types);
+
         // The AST Classes
         for (String type : types) {
             String className = type.split(":")[0].trim();
@@ -54,9 +54,26 @@ public class GenerateAst {
             defineType(writer, baseName, className, fields);
         }
 
+        // The Base Accept() method
+        writer.println();
+        writer.println("  abstract <R> R accept(Visitor<R> visitor);");
+
         writer.println("}");
         writer.close();
     }
+
+    // The Separate Visitor Interface Function
+    private static void defineVisitor(
+        PrintWriter writer,
+        String baseName,
+        List<String> types) {
+            for (String type : types) {
+                String typeName = type.split(":")[0].trim();
+                writer.println("    R visit" + typeName + baseName + "(" + typeName + " " + baseName.toLowerCase() + ")");
+            }
+
+            writer.println("  }");
+        }
 
     /* DefineType
      * This seems to write a class definition given the name inputs
@@ -81,6 +98,13 @@ public class GenerateAst {
 
         writer.println("    }");
 
+        // Visitor Pattern
+        writer.println();
+        writer.println("    @Override");
+        writer.println("    <R> R accept(Visitor<R> visitor) {");
+        writer.println("      return visitor.visit" + className + baseName + "(this);");
+        writer.println("    }");
+
         //Fields
         writer.println();
         for(String field : fields) {
@@ -88,6 +112,7 @@ public class GenerateAst {
         }
 
         writer.println("  }");
+
     }   
 
 }
