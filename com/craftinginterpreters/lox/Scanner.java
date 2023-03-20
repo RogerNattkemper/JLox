@@ -77,15 +77,11 @@ class Scanner {
 
             // The comment line special cases
             case '/': 
-                if (match('/')) {
+                if (match('/')) { 
                     while (peek() != '\n' && !isAtEnd()) advance(); // If "//" is found this line is a comment, and it while loops through rest of it to ignore
                 }
-                else if (match('*')) {
-                    starcomment(); 
-                }
-                else {
-                    addToken(SLASH);
-                }
+                else if (match('*')) { starcomment(); } // If a "/*" is encountered, find the ending "*/" ignoring everything in between, including newlines
+                else { addToken(SLASH); }
                 break;
 
             // These are spaces, returns and tabs, so just whitespace 

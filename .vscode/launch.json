@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GenerateAst",
+            "request": "launch",
+            "mainClass": "com.craftinginterpreters.tool.GenerateAst",
+            "projectName": "jlox_cc3e3522"
+        },
+        {
+            "type": "java",
             "name": "Launch with File",
             "request": "launch",
             "vmArgs": "c:users.roger.hpw.jlox.com.craftinginterpreters.lox.loxexample",
