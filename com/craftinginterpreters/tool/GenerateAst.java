@@ -17,7 +17,7 @@ public class GenerateAst {
         //     System.exit(64);
         // }
 
-        // The next line prints our where Java is executing from,
+        // The next line prints out where Java is executing from,
         // i.e. its "current working directory".
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
