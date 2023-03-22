@@ -64,12 +64,12 @@ public class GenerateAst {
 
     // The Separate Visitor Interface Function
     private static void defineVisitor(
-        PrintWriter writer,
-        String baseName,
-        List<String> types) {
+        PrintWriter writer, String baseName, List<String> types) {
+            writer.println("  interface Visitor<R> {");
+
             for (String type : types) {
                 String typeName = type.split(":")[0].trim();
-                writer.println("    R visit" + typeName + baseName + "(" + typeName + " " + baseName.toLowerCase() + ")");
+                writer.println("    R visit" + typeName + baseName + "(" + typeName + " " + baseName.toLowerCase() + ");");
             }
 
             writer.println("  }");
